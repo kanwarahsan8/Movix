@@ -15,10 +15,11 @@ import "./style.scss";
 import CircleRating from "../circleRating/CircleRating";
 import Genres from "../genres/Genres";
 
-const Carousel = ({ data, loading }) => {
-  console.log(data);
+const Carousel = ({ data, loading, endpoint }) => {
+  console.log(data, "top");
   const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
+  console.log(url, "url");
   const navigate = useNavigate();
   const navigation = (dir) => {
     const container = carouselContainer.current;
@@ -49,7 +50,7 @@ const Carousel = ({ data, loading }) => {
         />
 
         <BsFillArrowRightCircleFill
-          className="carouselRightNav arrow"
+          className="carouselRighttNav arrow"
           onClick={() => navigation("right")}
         />
         {!loading ? (
@@ -62,7 +63,9 @@ const Carousel = ({ data, loading }) => {
                 <div
                   key={item.id}
                   className="carouselItem"
-                  onClick={() => navigate(`/${item.media_type}/${item.id}`)}
+                  onClick={() =>
+                    navigate(`/${item.media_type || endpoint}/${item.id}`)
+                  }
                 >
                   <div className="posterBlock">
                     <Img src={posterUrl} />
